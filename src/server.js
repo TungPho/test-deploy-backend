@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
 
   socket.on("chat message", (msg) => {
     console.log("📩 Message received:", msg);
-    io.emit("chat message", msg); // Gửi tin nhắn đến tất cả client
+    io.to(socket.id).emit("chat message", msg); // Gửi tin nhắn đến tất cả client
   });
 
   socket.on("disconnect", () => {
