@@ -13,6 +13,12 @@ const io = new Server(server, {
   },
 });
 
+app.use("/", (req, res, next) => {
+  return res.status(200).json({
+    message: "Welcome to the server",
+  });
+});
+
 // Lắng nghe kết nối từ client
 io.on("connection", (socket) => {
   console.log("⚡ A user connected:", socket.id);
