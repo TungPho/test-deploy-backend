@@ -7,14 +7,13 @@ const app = express();
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  path: "/socket",
-  wsEngine: ["ws", "wss"],
-  transports: ["websocket", "polling"],
+const io = socketIo(server, {
   cors: {
-    origin: "*",
+    origin: "https://test-deploy-frontend-orpin.vercel.app",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true,
   },
-  allowEIO3: true,
 });
 app.use(cors());
 app.use("/", (req, res, next) => {
