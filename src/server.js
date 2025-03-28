@@ -4,16 +4,19 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
+  path: "/socket",
+  wsEngine: ["ws", "wss"],
+  transports: ["websocket", "polling"],
   cors: {
-    origin: "https://test-deploy-frontend-orpin.vercel.app/", // Khi deploy, thay "*" bằng URL frontend trên Vercel
-    methods: ["GET", "POST"],
+    origin: "*",
   },
+  allowEIO3: true,
 });
-
+app.use(cors());
 app.use("/", (req, res, next) => {
   return res.status(200).json({
     message: "Welcome to the server",
